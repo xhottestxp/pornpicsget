@@ -1,4 +1,5 @@
 from xhtml.model.xhtml import XHtml
+from xhtml.getporn.getporn import GetPorn
 
 
 class ServiceXHtml:
@@ -12,7 +13,15 @@ class ServiceXHtml:
     def __init__(self):
         """New ServiceXHtml.
         """
-        pass
+        self._getporn = GetPorn()
+
+    # getter method
+
+    @property
+    def getporn(self):
+        return self._getporn
+
+    # make download, return data correct
 
     def download_xhmtl(self, xhmtl: XHtml) -> bool:
         """This method makes download from a pornpics
@@ -24,7 +33,7 @@ class ServiceXHtml:
         Returns:
             bool: True if success.
         """
-        pass
+        self.getporn.download_xhmtl(pornhtml=xhmtl)
 
     def select_xhtml(self, xhtml: XHtml) -> tuple:
         """This method get from XHtml page downloaded.
