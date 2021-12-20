@@ -28,7 +28,9 @@ Below see what are the modules required.
 ```pip install clipboard```
 
 > tkinter
+<clipboard-copy for="new-oauth-token" aria-label="Copy token" data-copy-feedback="Copied!" data-tooltip-direction="ne" data-view-component="true" class="btn-link" tabindex="0" role="button">
 ```sudo apt install python3-tk``` on Ubuntu and derivates
+</clipboard-copy>
 
 # Instaling
 
