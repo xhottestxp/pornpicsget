@@ -477,14 +477,30 @@ class XPornPics:
         Args:
             evt (<Button-1>): left button mouse.
         """
+        # setting pornhtml url and path to a storage html
         self.pornhtml.urlink = self.entry_url.get()
         self.pornhtml.path = self.PORNHTML
+        # checking if page was downloading
         if not Facade.facade().download_xhmtl(xhmtl=self.pornhtml):
-            if Msg.msg().error:
-                error(title=Msg.msg().title, message=Msg.msg().message)
-            elif Msg.msg().warning:
-                warning(title=Msg.msg().title, message=Msg.msg().message)
+            self.messageproblem()
             return
+        else:
+            # inserting data to pornpics model
+            self.pornpics.path = self.entry_path.get()
+            self.pornpics.photos = Facade.facade().select_xhtml(xhtml=self.pornhtml)
+        # checking if photos were downloaded
+        if not Facade.facade().download_photos_pornpics(pornpics=self.pornpics):
+            self.messageproblem()
+        else:
+            info(title=Msg.msg().title, message=Msg.msg().message)
+
+    def messageproblem(self):
+        """Show user message problem.
+        """
+        if Msg.msg().error:
+            error(title=Msg.msg().title, message=Msg.msg().message)
+        elif Msg.msg().warning:
+            warning(title=Msg.msg().title, message=Msg.msg().message)
 
     # --------------------------------------------------------------------------
 

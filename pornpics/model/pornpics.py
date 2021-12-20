@@ -10,19 +10,10 @@ class Pornpics:
     def __init__(self):
         """New Pornpics model photos download.
         """
-        self._urlink = ''
         self._path = ''
         self._photos = tuple()
 
     # getter and setter
-
-    @property
-    def urlink(self):
-        return self._urlink
-
-    @urlink.setter
-    def urlink(self, urlink: urlink):
-        self._urlink = urlink
 
     @property
     def path(self):
