@@ -9,9 +9,10 @@ from tkinter.messagebox import showinfo as info
 from tkinter.messagebox import showwarning as warning
 # local modules
 from tools.tools import pathtofile, configtext
-from core.singleton.sfacade import SFacade
-from core.singleton.smsg import SMsg
+from core.singleton.sfacade import SFacade as Facade
+from core.singleton.smsg import SMsg as Msg
 from pornpics.model.pornpics import Pornpics
+from xhtml.model.xhtml import XHtml as Pornhtml
 
 
 class XPornPics:
@@ -40,6 +41,10 @@ class XPornPics:
     def __init__(self):
         """New GUI Pornpics
         """
+        # Pornpics model
+        self._pornpics = Pornpics()
+        # Pornhtml model
+        self._pornhtml = Pornhtml()
         # creating window
         self.window = Tk()
         self.window.minsize(720, 520)
@@ -195,6 +200,25 @@ class XPornPics:
         self.window.mainloop()
 
     # --------------------------------------------------------------------------
+
+    # pornpics and pornhtml getter model and clears
+
+    @property
+    def pornpics(self) -> Pornpics:
+        return self._pornpics
+
+    @property
+    def pornhtml(self) -> Pornhtml:
+        return self._pornhtml
+
+    def clear_models(self):
+        """Clear Pornpics and Pornhtml model instances.
+        """
+        self.pornpics.urlink = ''
+        self.pornpics.path = ''
+        self.pornpics.photos = tuple()
+        self.pornhtml.urlink = ''
+        self.pornhtml.path = ''
 
     # change theme
 
@@ -362,9 +386,9 @@ class XPornPics:
         return self.PINK if pink else self.BLACK if self._boollight.get() else self.WHITE
 
     # --------------------------------------------------------------------------
-    
+
     # cleans url entry
-    
+
     def clearurl(self, evt):
         """This method can cleans entry url.
 
@@ -372,9 +396,9 @@ class XPornPics:
             evt (<Button-1>): left button click event
         """
         self.entry_url.delete(0, 'end')
-    
+
     # --------------------------------------------------------------------------
-    
+
     # paste and select buttons events
 
     def action_press_url(self, evt):
@@ -402,9 +426,9 @@ class XPornPics:
         self.entry_path.insert(0, direct[1] if direct[1] else direct[0])
 
     # --------------------------------------------------------------------------
-    
+
     # param checkbuttons command
-    
+
     def select_jpg(self):
         """Select jpg.
         """
@@ -413,7 +437,7 @@ class XPornPics:
         self._boolother.set(False)
         self.entry_other['state'] = DISABLED
         self._booljpg.set(True)
-    
+
     def select_gif(self):
         """Select gif.
         """
@@ -422,7 +446,7 @@ class XPornPics:
         self._boolother.set(False)
         self.entry_other['state'] = DISABLED
         self._boolgif.set(True)
-    
+
     def select_png(self):
         """Select png.
         """
@@ -431,7 +455,7 @@ class XPornPics:
         self._boolother.set(False)
         self.entry_other['state'] = DISABLED
         self._boolpng.set(True)
-    
+
     def select_other(self):
         """Select png.
         """
@@ -441,11 +465,11 @@ class XPornPics:
         self._boolother.set(True)
         self.entry_other['state'] = NORMAL
         self.entry_other.focus()
-    
+
     # --------------------------------------------------------------------------
-    
+
     # download button event
-    
+
     def makedownload(self, evt):
         """This method is responsible to try to make download from photos
         inside pornpics url.
@@ -453,8 +477,15 @@ class XPornPics:
         Args:
             evt (<Button-1>): left button mouse.
         """
-        pass
-    
+        self.pornhtml.urlink = self.entry_url.get()
+        self.pornhtml.path = self.PORNHTML
+        if not Facade.facade().download_xhmtl(xhmtl=self.pornhtml):
+            if Msg.msg().error:
+                error(title=Msg.msg().title, message=Msg.msg().message)
+            elif Msg.msg().warning:
+                warning(title=Msg.msg().title, message=Msg.msg().message)
+            return
+
     # --------------------------------------------------------------------------
 
     # file with configuration
