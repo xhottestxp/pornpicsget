@@ -11,6 +11,7 @@ class XHtml:
         """
         self._urlink = ''
         self._path = ''
+        self._ext = ''
 
     # getter and setter
 
@@ -29,3 +30,11 @@ class XHtml:
     @path.setter
     def path(self, path: str):
         self._path = path
+    
+    @property
+    def ext(self):
+        return self._ext
+    
+    @ext.setter
+    def ext(self, ext: str):
+        self._ext = ext

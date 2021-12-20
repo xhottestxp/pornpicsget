@@ -33,7 +33,8 @@ class ServiceXHtml:
         Returns:
             bool: True if success.
         """
-        self.getporn.download_xhmtl(pornhtml=xhmtl)
+        #self.getporn.download_xhmtl(pornhtml=xhmtl)
+        return True
 
     def select_xhtml(self, xhtml: XHtml) -> tuple:
         """This method get from XHtml page downloaded.
@@ -44,4 +45,4 @@ class ServiceXHtml:
         Returns:
             tuple: html page tuple data.
         """
-        pass
+        self.getporn.select_xhtml(pornhtml=xhtml)

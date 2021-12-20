@@ -181,6 +181,7 @@ class XPornPics:
         self.entry_other['width'] = 10
         self.entry_other['bd'] = 0
         self.entry_other['state'] = DISABLED
+        self.entry_other.bind('<KeyRelease>', self.maskentryother)
         self.entry_other.pack(side=LEFT)
         # frame button download
         self.frame_download = Frame(self.window)
@@ -468,6 +469,28 @@ class XPornPics:
 
     # --------------------------------------------------------------------------
 
+    # mask to entry other
+
+    def maskentryother(self, evt):
+        """This method inserts a mask to extension.
+
+        Args:
+            evt (<KeyRelease>): when user press a key.
+        """
+        content = self.entry_other.get()
+        if not content:
+            self.entry_other.insert(0, '.')
+        elif content[0] != '.':
+            content = f'.{content}'
+            self.entry_other.delete(0, 'end')
+            self.entry_other.insert(0, content)
+        if content.__len__() > 8:
+            content = content[:8]
+        self.entry_other.delete(0, 'end')
+        self.entry_other.insert(0, content)
+
+    # --------------------------------------------------------------------------
+
     # download button event
 
     def makedownload(self, evt):
@@ -480,6 +503,10 @@ class XPornPics:
         # setting pornhtml url and path to a storage html
         self.pornhtml.urlink = self.entry_url.get()
         self.pornhtml.path = self.PORNHTML
+        self.pornhtml.ext = '.jpg' if self._booljpg.get() else '.gif' \
+            if self._boolgif.get() else '.png' \
+            if self._boolpng.get() else self.entry_other.get() \
+            if self._boolother.get() else ''
         # checking if page was downloading
         if not Facade.facade().download_xhmtl(xhmtl=self.pornhtml):
             self.messageproblem()
