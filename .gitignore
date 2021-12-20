@@ -9,6 +9,9 @@ __pycache__/
 # Pages/html
 pages/adult.html
 
+# Config.porn
+config.porn
+
 # Distribution / packaging
 .Python
 build/
