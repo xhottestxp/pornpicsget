@@ -62,7 +62,10 @@ class GetPorn:
             data = (la.strip() for la in data)
             data = (la for la in data if pornhtml.ext in la)
             data = [la.split() for la in data]
+        # auxiliary tuple
         photos = ()
+        # prevent to not have duplicate data
+        del data[0]
         # improving data
         for dat in data:
             for porn in dat:
@@ -70,8 +73,7 @@ class GetPorn:
         else:
             data = (porn for porn in photos if pornhtml.ext in porn)
             data = (tuple(porn.split('=')) for porn in data)
-            data = (porn[1][1:-1] for porn in data)
-            data = tuple(porn for porn in data)[1:]
+            data = tuple(porn[1][1:-1] for porn in data)
         # getting the best and becoming a generator
         try:
             porn = data.__len__()
@@ -80,4 +82,4 @@ class GetPorn:
             pass
         finally:
             porn = photos = dat = None
-            return data
+            return (title,) + data
