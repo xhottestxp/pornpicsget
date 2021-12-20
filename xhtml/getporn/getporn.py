@@ -47,13 +47,10 @@ class GetPorn:
         Returns:
             generator: html page generator data.
         """
-        # checks if file exists
-        try:
-            porn = open(pornhtml.path, 'r')
-        except FileNotFoundError:
-            return ()
-        finally:
-            porn.close()
+        # checks if file empty
+        with open(file=pornhtml, mode='r') as porn:
+            if not porn.readline():
+                return ()
         # getting data from file
         with open(file=pornhtml.path, mode='r') as porn:
             data = porn.readlines()
