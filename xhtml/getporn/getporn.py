@@ -13,7 +13,17 @@ class GetPorn:
     def __init__(self):
         """New PornPics hmtl download.
         """
-        pass
+        self._title = ''
+
+    # getter and setter
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, title: str):
+        self._title = title
 
     # make download, return data correct
 
@@ -48,35 +58,72 @@ class GetPorn:
             generator: html page generator data.
         """
         # checks if file empty
-        with open(file=pornhtml, mode='r') as porn:
+        with open(file=pornhtml.path, mode='r') as porn:
             if not porn.readline():
                 return ()
-        # getting data from file
+        # generating data
+        data = self._gettinglinks(
+            self._improvedata, self._gettingdata, pornhtml)
+        return (self.title,) + data
+
+    # -------------------------------------------------------------
+
+    def _gettingdata(self, pornhtml: Pornhtml) -> tuple:
+        """This method takes data from pornpics.html
+
+        Args:
+            pornhtml (Pornhtml): instance.
+
+        Returns:
+            tuple: data getter.
+        """
         with open(file=pornhtml.path, mode='r') as porn:
             data = porn.readlines()
-            title = data[5].strip()[7:-8]
+            self.title = data[5].strip()[7:-8]
             data = (la for la in data if 'https://' in la)
             data = (la.strip() for la in data)
             data = (la for la in data if pornhtml.ext in la)
             data = [la.split() for la in data]
-        # auxiliary tuple
-        photos = ()
         # prevent to not have duplicate data
         del data[0]
+        # returning tuple
+        return tuple(data)
+
+    def _improvedata(self, getdata: _gettingdata, *args):
+        """This method can improve data to do something new.
+
+        Args:
+            getdata (_gettingdata): method _gettingdata
+        """
+        photos = ()
+        data = getdata(args[0])
         # improving data
         for dat in data:
             for porn in dat:
                 photos += (porn,) if 'https://' in porn else ()
         else:
-            data = (porn for porn in photos if pornhtml.ext in porn)
+            data = (porn for porn in photos if args[0].ext in porn)
             data = (tuple(porn.split('=')) for porn in data)
             data = tuple(porn[1][1:-1] for porn in data)
-        # getting the best and becoming a generator
+        # returning improved data
+        return data
+
+    def _gettinglinks(self, improve: _improvedata, *args) -> tuple:
+        """This method gets the links to make download from pornpics.
+
+        Args:
+            improve (_improvedata): function.
+
+        Returns:
+            tuple: complete data links.
+        """
+        data = improve(args[0], args[1])
         try:
             porn = data.__len__()
             data = tuple(data[dat] for dat in range(0, porn, 2))
         except IndexError:
             pass
         finally:
-            porn = photos = dat = None
-            return (title,) + data
+            porn = dat = None
+        # returning complete data
+        return data

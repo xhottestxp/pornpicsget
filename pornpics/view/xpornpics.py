@@ -508,7 +508,7 @@ class XPornPics:
             if self._boolpng.get() else self.entry_other.get() \
             if self._boolother.get() else ''
         # checking if page was downloading
-        if not Facade.facade().download_xhmtl(xhmtl=self.pornhtml):
+        if not Facade.facade().download_xhtml(xhtml=self.pornhtml):
             self.messageproblem()
             return
         else:

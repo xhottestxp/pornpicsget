@@ -25,23 +25,23 @@ class ServiceXHtml:
 
     # make download, return data correct
 
-    def download_xhmtl(self, xhmtl: XHtml) -> bool:
+    def download_xhtml(self, xhtml: XHtml) -> bool:
         """This method makes download from a pornpics
         page html.
 
         Args:
-            xhmtl (XHtml): model class for pornpics.
+            xhtml (XHtml): model class for pornpics.
 
         Returns:
             bool: True if success.
         """
         # basic check - url check, pornpics url and path is file
-        if not checkurl(urlink=xhmtl.urlink):
+        if not checkurl(urlink=xhtml.urlink):
             Msg.msg().warning = True
             Msg.msg().title = 'Warning - URL problem'
             Msg.msg().message = 'Warning! Invalid URL'
             return False
-        elif 'https://www.pornpics.com' not in xhmtl.path:
+        elif 'https://www.pornpics.com' not in xhtml.urlink:
             Msg.msg().warning = True
             Msg.msg().title = 'Warning - Pornpics URL'
             Msg.msg().message = 'Warning! It\'s not Pornpics URL'
@@ -51,7 +51,7 @@ class ServiceXHtml:
             Msg.msg().title = 'Warning - pornpics.html'
             Msg.msg().message = 'Warning! There\'s not file pornpics.html'
             return False
-        return self.getporn.download_xhmtl(pornhtml=xhmtl)
+        return self.getporn.download_xhmtl(pornhtml=xhtml)
 
     def select_xhtml(self, xhtml: XHtml) -> tuple:
         """This method get from XHtml page downloaded.
