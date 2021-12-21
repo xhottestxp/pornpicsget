@@ -11,11 +11,11 @@ There are two modes or themes to that application. They are...
 
 ## Dark Mode
 
-![dark mode](https://github.com/xhottestxp/projectimagedata/pornpicsget/pornpicsget-dark.webp)
+![dark mode](https://github.com/xhottestxp/projectimagedata/blob/main/pornpicsget/pornpicsget-dark.webp)
 
 ## Light Mode
 
-![light mode](https://github.com/xhottestxp/projectimagedata/pornpicsget/pornpicsget-light.webp)
+![light mode](https://github.com/xhottestxp/projectimagedata/blob/main/pornpicsget/pornpicsget-light.webp)
 
 # Dependencies
 
