@@ -5,6 +5,18 @@ Download naked horny girls photos from PornPics.
 It'll download the hmtl page and so will to check and returns just required
 data.
 
+# Images
+
+There are two modes or themes to that application. They are...
+
+## Dark Mode
+
+![dark mode](https://github.com/xhottestxp/projectimagedata/pornpicsget/pornpicsget-dark.webp)
+
+## Light Mode
+
+![light mode](https://github.com/xhottestxp/projectimagedata/pornpicsget/pornpicsget-light.webp)
+
 # Dependencies
 
 Below see what are the modules required.
