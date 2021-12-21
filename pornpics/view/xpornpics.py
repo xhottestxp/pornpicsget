@@ -516,7 +516,7 @@ class XPornPics:
             self.pornpics.path = self.entry_path.get()
             self.pornpics.photos = Facade.facade().select_xhtml(xhtml=self.pornhtml)
         # checking if photos were downloaded
-        if not Facade.facade().download_photos_pornpics(pornpics=self.pornpics):
+        if not Facade.facade().download_pornpics(pornpics=self.pornpics):
             self.messageproblem()
         else:
             info(title=Msg.msg().title, message=Msg.msg().message)

@@ -47,7 +47,7 @@ class Facade:
 
     # service pornpics
 
-    def download_photos_pornpics(self, pornpics: Pornpics) -> bool:
+    def download_pornpics(self, pornpics: Pornpics) -> bool:
         """This method checks and try to make download from files
         and returns boolean types.
 
@@ -57,4 +57,4 @@ class Facade:
         Returns:
             bool: True if success.
         """
-        return self._svpornpics.download_photos_pornpics(pornpics=pornpics)
+        return self._svpornpics.download_pornpics(pornpics=pornpics)

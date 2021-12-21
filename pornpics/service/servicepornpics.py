@@ -18,7 +18,7 @@ class ServicePornpics:
         """
         pass
 
-    def download_photos_pornpics(self, pornpics: Pornpics) -> bool:
+    def download_pornpics(self, pornpics: Pornpics) -> bool:
         """This method checks and try to make download from files
         and returns boolean types.
 
