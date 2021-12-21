@@ -97,7 +97,7 @@ def isdirectory(pathdir: str) -> bool:
     Returns:
         bool: True if it is a directory.
     """
-    return isdir(path=pathdir)
+    return isdir(pathdir)
 
 
 def isafile(pathfile: str) -> bool:

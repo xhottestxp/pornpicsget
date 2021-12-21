@@ -2,7 +2,8 @@ from os import mkdir
 # local project modules
 from core.singleton.smsg import SMsg as Msg
 from pornpics.model.pornpics import Pornpics
-from tools.tools import isdirectory, getnameurl, checkurl
+from tools.tools import isdirectory, checkurl
+from core.pornload.pornload import Pornload
 
 
 class ServicePornpics:
@@ -16,7 +17,15 @@ class ServicePornpics:
     def __init__(self):
         """New Service Pornpics.
         """
-        pass
+        self._pornland = Pornload()
+
+    # getter
+
+    @property
+    def pornland(self):
+        return self._pornland
+
+    # try make download
 
     def download_pornpics(self, pornpics: Pornpics) -> bool:
         """This method checks and try to make download from files
@@ -47,3 +56,14 @@ class ServicePornpics:
             mkdir(pornpics.path)
         # taking the first element - name folder new
         pornpics.photos = pornpics.photos[1:]
+        # trying to make download
+        if self.pornland.download_pornpics(pornpics=pornpics):
+            Msg.msg().info = True
+            Msg.msg().title = 'Success - Download'
+            Msg.msg().message = 'Success! All photos were downloaded'
+            return True
+        else:
+            Msg.msg().error = True
+            Msg.msg().title = 'Error - Download'
+            Msg.msg().message = 'Error! Invalid download'
+            return False
